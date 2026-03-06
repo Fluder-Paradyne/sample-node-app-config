@@ -1,7 +1,7 @@
 # Staging overrides - HPA enabled
 replicaCount: 2
 image:
-  tag: "35"
+  tag: "36"
   pullPolicy: Always
 hpa:
   enabled: true
