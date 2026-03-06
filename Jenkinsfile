@@ -7,6 +7,7 @@ pipeline {
     APP_IMAGE = "${REGISTRY}/sample-node-app"
     APP_REPO = 'https://github.com/Fluder-Paradyne/sample-node-project.git'
     APP_CONFIG_REPO = 'https://github.com/Fluder-Paradyne/sample-node-app-config.git'
+    APP_CONFIG_CREDENTIALS = 'github-app-config'
   }
   stages {
     stage('Checkout') {
@@ -66,8 +67,12 @@ pipeline {
             git config user.email "jenkins@local"
             git config user.name "Jenkins"
             git add sample-node-app/values-staging.yaml
-            git diff --staged --quiet || (git commit -m "Deploy to staging: ${BUILD_NUMBER}" && git push origin HEAD)
           """
+          withCredentials([usernamePassword(credentialsId: env.APP_CONFIG_CREDENTIALS, usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+            sh """
+              git diff --staged --quiet || (git commit -m "Deploy to staging: ${BUILD_NUMBER}" && git push https://\${GIT_USER}:\${GIT_TOKEN}@github.com/Fluder-Paradyne/sample-node-app-config.git HEAD:main)
+            """
+          }
         }
       }
     }
@@ -84,8 +89,12 @@ pipeline {
             git config user.email "jenkins@local"
             git config user.name "Jenkins"
             git add sample-node-app/values-prod.yaml
-            git diff --staged --quiet || (git commit -m "Promote to production: ${BUILD_NUMBER}" && git push origin HEAD)
           """
+          withCredentials([usernamePassword(credentialsId: env.APP_CONFIG_CREDENTIALS, usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+            sh """
+              git diff --staged --quiet || (git commit -m "Promote to production: ${BUILD_NUMBER}" && git push https://\${GIT_USER}:\${GIT_TOKEN}@github.com/Fluder-Paradyne/sample-node-app-config.git HEAD:main)
+            """
+          }
         }
       }
     }
