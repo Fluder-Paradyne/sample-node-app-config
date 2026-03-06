@@ -1,0 +1,6 @@
+Sample Node.js app has been deployed.
+
+Access via port-forward:
+  kubectl port-forward svc/{{ include "sample-node-app.fullname" . }} -n {{ .Release.Namespace }} 3000:3000
+
+Then open http://localhost:3000

@@ -1,0 +1,28 @@
+# Default values for sample-node-app
+replicaCount: 1
+
+image:
+  repository: registry.registry.svc.cluster.local:5000/sample-node-app
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 3000
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+hpa:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
+networkPolicy:
+  enabled: false

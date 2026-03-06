@@ -1,0 +1,11 @@
+# Dev overrides - minimal resources
+replicaCount: 1
+hpa:
+  enabled: false
+resources:
+  requests:
+    cpu: 25m
+    memory: 32Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi

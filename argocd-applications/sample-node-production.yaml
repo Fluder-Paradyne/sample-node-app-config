@@ -1,0 +1,19 @@
+# ArgoCD Application for production (optional - Terraform creates this)
+# Apply with: kubectl apply -f sample-node-production.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sample-node-production
+  namespace: argocd
+spec:
+  project: sample-node-app
+  source:
+    repoURL: https://github.com/Fluder-Paradyne/sample-node-app-config.git
+    targetRevision: main
+    path: sample-node-app
+    helm:
+      valueFiles:
+        - values-prod.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sample-node-app

@@ -1,0 +1,17 @@
+# Production overrides - higher replicas and resources
+replicaCount: 3
+image:
+  tag: "latest"
+  pullPolicy: Always
+hpa:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi

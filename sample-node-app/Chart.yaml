@@ -1,0 +1,9 @@
+apiVersion: v2
+name: sample-node-app
+description: Sample Node.js application from Fluder-Paradyne/sample-node-project
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - nodejs
+  - express
