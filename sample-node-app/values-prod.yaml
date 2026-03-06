@@ -1,7 +1,7 @@
 # Production overrides - higher replicas and resources
 replicaCount: 3
 image:
-  tag: "latest"
+  tag: "34"
   pullPolicy: Always
 hpa:
   enabled: true
